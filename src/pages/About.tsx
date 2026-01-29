@@ -14,6 +14,17 @@ export function AboutPage() {
         </h1>
       </ScrollReveal>
 
+      <ScrollReveal delay={0.1}>
+        <div className="mb-10 w-full aspect-video overflow-hidden rounded-2xl border border-white/10 bg-muted/20 relative">
+          <img
+            src="/images/profile.png"
+            alt={profileData.name}
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+        </div>
+      </ScrollReveal>
+
       <div className="prose prose-invert prose-lg text-muted-foreground">
         <ScrollReveal delay={0.1}>
           <p className="lead text-xl text-foreground font-medium mb-6">

@@ -21,9 +21,13 @@ export function Navbar() {
             to="/"
             className="text-xl font-bold tracking-tighter hover:text-primary transition-colors flex items-center gap-2"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-mono text-sm">
-              SS
-            </span>
+            <div className="relative h-8 w-8 overflow-hidden rounded-full border border-border/50">
+              <img
+                src="/images/profile.png"
+                alt="Profile"
+                className="h-full w-full object-cover"
+              />
+            </div>
             <span className="hidden sm:inline-block">Shahrul.</span>
           </Link>
         </div>
