@@ -1,0 +1,259 @@
+{
+  "projects": [
+    {
+      "slug": "sdengage",
+      "name": "SDEngage",
+      "tagline": "Ticketing & event engagement platform with payments, QR access, and admin operations.",
+      "labels": [
+        "Ticketing",
+        "Payments",
+        "QR",
+        "Admin Dashboard",
+        "Real-time",
+        "Analytics"
+      ],
+      "role": "Full-Stack Team Lead",
+      "intro": "SDEngage is an end-to-end ticketing system designed to handle purchase flows, attendee validation, and on-ground operations reliably—while staying fast and smooth on mobile.",
+      "problem": [
+        "Event teams needed a reliable system to sell tickets, validate attendance on-site, and manage changes without chaos.",
+        "Legacy/manual workflows caused delays in check-in, inconsistent attendee records, and weak visibility for organizers.",
+        "The platform needed to support multiple events, varying ticket rules, and real-time updates across devices."
+      ],
+      "constraints": [
+        "High concurrency during ticket releases and event-day check-in spikes.",
+        "Payment flows must be resilient (callbacks/webhooks, retries, idempotency) and maintain strong data integrity.",
+        "Mobile UX must stay responsive even on weaker devices and unstable networks.",
+        "Operational needs: quick search, fast scanning, and near-real-time status sync for staff."
+      ],
+      "myRole": [
+        "Led the end-to-end delivery across backend + mobile, coordinating tasks and aligning technical decisions with business needs.",
+        "Designed API contracts, data models, and validation rules to keep mobile and backend consistent.",
+        "Owned reliability-critical areas (payment status updates, event-day check-in performance, real-time notifications)."
+      ],
+      "architecture": {
+        "summary": "Clients consume authenticated APIs. Payment callbacks update transactions and broadcast state changes to clients.",
+        "diagramNodes": ["Client", "API", "DB", "Payment Gateway", "Realtime"]
+      },
+      "keyFeatures": [
+        "Ticket purchase flow with promo codes, validation, and payment selection.",
+        "Transaction lifecycle: pending → success/fail with consistent state updates.",
+        "QR-based attendee validation and controlled check-in workflows.",
+        "Organizer/admin views: orders, participants, exports.",
+        "Real-time notifications for transaction updates and operational events."
+      ],
+      "techChoicesWhy": [
+        "Laravel for validation, transactional integrity, events/queues, and rapid backend iteration.",
+        "React Native for native-feeling UX with QR scanning and stable performance.",
+        "Real-time updates to keep critical status synchronized across devices.",
+        "Eager loading + paging strategies for large lists (orders/participants)."
+      ],
+      "securityReliability": [
+        "Authorization-first endpoints to reduce IDOR risks.",
+        "Idempotent payment completion logic to prevent double-fulfillment.",
+        "Database transactions + rollback on failure.",
+        "Defensive handling for nullability and edge cases."
+      ],
+      "results": [
+        { "label": "Performance", "value": "Reduced load time: TBD → TBD" },
+        { "label": "Users", "value": "Active users: TBD" },
+        { "label": "Revenue", "value": "Revenue influenced: TBD" },
+        { "label": "Time saved", "value": "Ops time saved: TBD hours/week" }
+      ],
+      "gallery": [
+        {
+          "alt": "Ticket purchase summary and payment selection",
+          "src": "/placeholders/sdengage-1.jpg"
+        },
+        {
+          "alt": "QR check-in scanner flow",
+          "src": "/placeholders/sdengage-2.jpg"
+        },
+        {
+          "alt": "Admin dashboard list views",
+          "src": "/placeholders/sdengage-3.jpg"
+        }
+      ],
+      "links": {
+        "live": "https://example.com",
+        "github": "https://github.com/example/repo",
+        "demo": "https://example.com/demo"
+      }
+    },
+    {
+      "slug": "fastev",
+      "name": "FastEV",
+      "tagline": "EV charging app with station discovery, QR start/stop flows, payments, and wallet top-ups.",
+      "labels": [
+        "EV Charging",
+        "Payments",
+        "QR",
+        "Maps",
+        "Real-time",
+        "Wallet"
+      ],
+      "role": "Full-Stack Team Lead",
+      "intro": "FastEV focuses on a clean charging experience—from finding stations to starting a session, handling payments, and tracking history—while keeping state accurate in real time.",
+      "problem": [
+        "Users needed a frictionless flow to discover chargers, start sessions quickly, and understand charging progress.",
+        "Operators needed reliable session state handling with correct connector availability and status updates.",
+        "Payment and wallet flows had to be consistent, auditable, and resilient against interruptions."
+      ],
+      "constraints": [
+        "Connector status changes rapidly; UI must reflect updates without manual refresh.",
+        "Map/list views can be heavy; performance must remain premium.",
+        "Payments must handle callbacks, failures, retries, and partial states safely.",
+        "Sessions must stay accurate during flaky connectivity and app backgrounding."
+      ],
+      "myRole": [
+        "Led system design across mobile, API integration, and real-time connector updates.",
+        "Defined state strategy so list + details remain consistent and live.",
+        "Drove performance work: chunk fetch, rendering optimization, stable UI states."
+      ],
+      "architecture": {
+        "summary": "Station/session APIs + real-time status updates. Wallet and transactions remain auditable through server-side records.",
+        "diagramNodes": [
+          "Mobile App",
+          "API",
+          "DB",
+          "Payment Providers",
+          "Realtime"
+        ]
+      },
+      "keyFeatures": [
+        "Map + list station discovery with filters (connector types/operators/power).",
+        "QR-based connector selection and start session flow with confirmation steps.",
+        "Wallet top-ups and payments integrated into a clean checkout experience.",
+        "Charging session tracking: status, history, transaction journal, receipts-ready records.",
+        "Real-time connector status updates to prevent dead trips."
+      ],
+      "techChoicesWhy": [
+        "React Native for consistent UX across devices.",
+        "Central state approach to prevent stale route params.",
+        "Chunked fetching to load nearby stations first without freezing UI.",
+        "Transaction journal for traceability across payment/session transitions."
+      ],
+      "securityReliability": [
+        "Strict ownership checks for sessions and wallet operations.",
+        "Defensive handling for network drops and background/foreground transitions.",
+        "Consistent status enums and contract validation to avoid ghost states.",
+        "Receipt-ready records to support disputes and audit trails."
+      ],
+      "results": [
+        {
+          "label": "Performance",
+          "value": "Improved station list responsiveness: TBD"
+        },
+        {
+          "label": "Reliability",
+          "value": "Reduced stale connector states: TBD"
+        },
+        { "label": "Users", "value": "Monthly active users: TBD" },
+        { "label": "Time saved", "value": "Reduced time-to-start-session: TBD" }
+      ],
+      "gallery": [
+        {
+          "alt": "Map with filters and station pins",
+          "src": "/placeholders/fastev-1.jpg"
+        },
+        {
+          "alt": "Connector details with live status",
+          "src": "/placeholders/fastev-2.jpg"
+        },
+        {
+          "alt": "Wallet top-up and payment flow",
+          "src": "/placeholders/fastev-3.jpg"
+        }
+      ],
+      "links": {
+        "live": "https://example.com",
+        "github": "https://github.com/example/repo",
+        "demo": "https://example.com/demo"
+      }
+    },
+    {
+      "slug": "ppkm",
+      "name": "PPKM",
+      "tagline": "Car inspection booking system with slot availability, holds, payments, and admin workflows.",
+      "labels": [
+        "Booking",
+        "Payments",
+        "Slot Holds",
+        "Admin Workflow",
+        "Notifications",
+        "Auditability"
+      ],
+      "role": "Full-Stack Team Lead",
+      "intro": "PPKM makes appointment booking trustworthy and scalable—preventing overbooking, handling payments safely, and keeping staff workflows simple.",
+      "problem": [
+        "Manual booking created overbooking risks, poor visibility, and operational overhead.",
+        "The system needed a fair reservation mechanism so multiple users couldn’t claim the same slot.",
+        "Admins needed clear booking status, auditability, and workflow alignment with operations."
+      ],
+      "constraints": [
+        "Slot allocation must be consistent under concurrent booking attempts.",
+        "Payments must link to booking summaries and finalize only on confirmed success.",
+        "Wizard UX must enforce capacity rules without friction.",
+        "Automated cleanup needed for abandoned bookings."
+      ],
+      "myRole": [
+        "Led data model and booking flow design (availability, holds, finalize on payment success).",
+        "Defined API endpoints and responsibilities to keep logic predictable.",
+        "Ensured booking states are auditable and operationally meaningful."
+      ],
+      "architecture": {
+        "summary": "Availability → Hold (expiring) → Payment → Finalize booking on success. Expired holds release automatically.",
+        "diagramNodes": ["Web UI", "API", "DB", "Payment Gateway", "Scheduler"]
+      },
+      "keyFeatures": [
+        "Slot availability with capacity counters (booked/pending/remaining).",
+        "Slot holds with expiry + idempotency keys.",
+        "Finalize booking on payment success; release on cancel/timeout.",
+        "Admin booking views with clean status tracking.",
+        "Scheduled expiry job to restore capacity automatically."
+      ],
+      "techChoicesWhy": [
+        "Dedicated holds model to reduce concurrency issues and overbooking.",
+        "Scheduled expiry to keep capacity accurate without manual intervention.",
+        "Clear booking state fields to support audit trails.",
+        "Wizard flow to keep UX guided while preserving integrity."
+      ],
+      "securityReliability": [
+        "Idempotent hold/book operations to prevent double booking.",
+        "Server-side validation for slot status and remaining capacity.",
+        "Atomic counter updates for pending/booked counts.",
+        "Snapshot fields to preserve booking-time state."
+      ],
+      "results": [
+        {
+          "label": "Reliability",
+          "value": "Reduced overbooking incidents: TBD"
+        },
+        {
+          "label": "Performance",
+          "value": "Improved booking completion rate: TBD"
+        },
+        { "label": "Time saved", "value": "Admin time saved per booking: TBD" },
+        { "label": "Operations", "value": "Fewer manual slot corrections: TBD" }
+      ],
+      "gallery": [
+        {
+          "alt": "Slot picker and availability UI",
+          "src": "/placeholders/ppkm-1.jpg"
+        },
+        {
+          "alt": "Booking summary and payment step",
+          "src": "/placeholders/ppkm-2.jpg"
+        },
+        {
+          "alt": "Admin booking record view",
+          "src": "/placeholders/ppkm-3.jpg"
+        }
+      ],
+      "links": {
+        "live": "https://example.com",
+        "github": "https://github.com/example/repo",
+        "demo": "https://example.com/demo"
+      }
+    }
+  ]
+}

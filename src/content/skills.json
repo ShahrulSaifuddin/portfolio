@@ -1,0 +1,43 @@
+{
+  "skills": [
+    {
+      "group": "Frontend",
+      "items": [
+        "Next.js",
+        "React",
+        "Astro",
+        "Tailwind",
+        "shadcn-style UI",
+        "Framer Motion"
+      ]
+    },
+    {
+      "group": "Mobile",
+      "items": [
+        "React Native",
+        "Deep Linking",
+        "QR/Camera flows",
+        "Performance tuning"
+      ]
+    },
+    {
+      "group": "Backend",
+      "items": [
+        "Laravel",
+        "Node.js",
+        "REST APIs",
+        "Auth/Authorization",
+        "Queues/Events"
+      ]
+    },
+    {
+      "group": "Quality",
+      "items": [
+        "Contract consistency",
+        "Idempotency",
+        "Monitoring mindset",
+        "DX and maintainability"
+      ]
+    }
+  ]
+}

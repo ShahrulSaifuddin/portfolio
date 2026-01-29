@@ -1,0 +1,16 @@
+{
+  "experience": [
+    {
+      "company": "Karuna Sdn Bhd",
+      "title": "Full-Stack Team Lead",
+      "start": "2024-08",
+      "end": "Present",
+      "highlights": [
+        "Led delivery across web, mobile, and backend—aligning requirements, API contracts, and UI quality.",
+        "Owned reliability-critical flows: payments, status updates, concurrency handling, real-time sync.",
+        "Improved performance through smarter fetching, caching patterns, and render optimization.",
+        "Built maintainable systems with strong validation, transaction safety, and consistent enums/contracts."
+      ]
+    }
+  ]
+}
