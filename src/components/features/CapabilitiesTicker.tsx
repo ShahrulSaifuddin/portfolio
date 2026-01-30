@@ -76,7 +76,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
         {[...Array(8)].map((_, i) => (
           <span
             key={i}
-            className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-transparent stroke-text hover:text-primary transition-colors duration-300 cursor-default select-none"
+            className="text-1xl md:text-2xl font-black uppercase tracking-tighter text-transparent stroke-text hover:text-primary transition-colors duration-300 cursor-default select-none"
             style={{
               WebkitTextStroke: "1px hsl(var(--muted-foreground))",
             }}
@@ -91,8 +91,8 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
 
 export function CapabilitiesTicker() {
   return (
-    <div className="w-full py-10 overflow-hidden bg-background border-y border-border/40">
-      <ParallaxText baseVelocity={2}>
+    <div className="w-full overflow-hidden bg-background">
+      <ParallaxText baseVelocity={0.5}>
         {`${capabilities.join(" • ")} • `}
       </ParallaxText>
     </div>
