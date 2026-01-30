@@ -31,7 +31,7 @@ function App() {
         */}
         <BrowserRouter>
           <AnimatedBackground />
-          <CommandPalette />
+          {/* <CommandPalette /> */}
 
           <Routes>
             <Route element={<RootLayout />}>
