@@ -209,7 +209,7 @@ const OrbitingSkill = memo(({ config }: { config: SkillConfig }) => {
         }}
       >
         <div
-          className="w-full h-full animate-spin-orbit group-hover/orbit:[animation-play-state:paused]"
+          className="w-full h-full animate-spin-orbit pause-on-hover"
           style={{
             animationDuration: `${duration}s`,
             animationDirection: direction,
@@ -220,7 +220,7 @@ const OrbitingSkill = memo(({ config }: { config: SkillConfig }) => {
             style={{ width: `${size}px`, height: `${size}px` }}
           >
             <div
-              className="w-full h-full animate-spin-orbit group-hover/orbit:[animation-play-state:paused]"
+              className="w-full h-full animate-spin-orbit pause-on-hover"
               style={{
                 animationDuration: `${duration}s`,
                 animationDirection: reverseDirection,
@@ -344,12 +344,18 @@ export function OrbitingSkills() {
           .animate-spin-orbit {
             animation: spin-orbit linear infinite;
           }
+          /* Only pause on hover for devices that support hover (desktop) */
+          @media (hover: hover) {
+            .orbit-container:hover .pause-on-hover {
+              animation-play-state: paused;
+            }
+          }
         `}
       </style>
 
       {/* Background pattern removed for seamless blending */}
 
-      <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] flex items-center justify-center transform-gpu scale-[0.6] sm:scale-90 md:scale-100 will-change-transform group/orbit">
+      <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] flex items-center justify-center transform-gpu scale-[0.6] sm:scale-90 md:scale-100 will-change-transform orbit-container">
         {/* Central "Code" Icon with enhanced glow */}
         <div className="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center z-10 relative shadow-2xl border border-gold-500/20">
           <div className="absolute inset-0 rounded-full bg-gold-500/30 blur-xl animate-pulse"></div>
