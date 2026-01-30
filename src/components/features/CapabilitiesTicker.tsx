@@ -71,7 +71,10 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
 
   return (
     <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
-      <motion.div className="flex whitespace-nowrap gap-10" style={{ x, skew }}>
+      <motion.div
+        className="flex whitespace-nowrap gap-10 will-change-transform"
+        style={{ x, skew }}
+      >
         {/* Render multiple copies for seamless loop */}
         {[...Array(8)].map((_, i) => (
           <span

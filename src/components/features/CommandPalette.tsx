@@ -10,7 +10,6 @@ import {
   CommandSeparator,
 } from "cmdk";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
 export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
