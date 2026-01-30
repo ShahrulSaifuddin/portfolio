@@ -13,45 +13,28 @@ const capabilities = [
 
 export function CapabilitiesTicker() {
   return (
-    <div className="relative w-full max-w-[100vw] overflow-hidden border-y border-border/40 bg-background/50 py-4">
-      <div className="flex select-none gap-8 w-full">
+    <div className="relative w-full overflow-hidden border-y border-border/40 bg-background/50 py-4">
+      <div className="flex w-full overflow-hidden">
         <motion.div
-          className="flex min-w-full shrink-0 gap-8 items-center"
-          animate={{ x: "-100%" }}
+          className="flex min-w-max shrink-0 items-center gap-8 px-4"
+          initial={{ x: 0 }}
+          animate={{ x: "-50%" }}
           transition={{
             duration: 60,
             ease: "linear",
             repeat: Infinity,
           }}
         >
+          {/* First set of items */}
           {capabilities.map((cap, i) => (
             <span
-              key={i}
+              key={`1-${i}`}
               className="text-sm font-medium uppercase tracking-widest text-muted-foreground/80 whitespace-nowrap"
             >
               {cap} •
             </span>
           ))}
-          {capabilities.map((cap, i) => (
-            <span
-              key={`dup-${i}`}
-              className="text-sm font-medium uppercase tracking-widest text-muted-foreground/80 whitespace-nowrap"
-            >
-              {cap} •
-            </span>
-          ))}
-        </motion.div>
-
-        {/* Duplicate for seamless loop if needed, though the above mapping handles it for standard widths. Double rendering is safer. */}
-        <motion.div
-          className="flex min-w-full shrink-0 gap-8 items-center absolute top-4 left-full"
-          animate={{ x: "-100%" }}
-          transition={{
-            duration: 25,
-            ease: "linear",
-            repeat: Infinity,
-          }}
-        >
+          {/* Duplicate set for loop */}
           {capabilities.map((cap, i) => (
             <span
               key={`2-${i}`}
@@ -60,9 +43,19 @@ export function CapabilitiesTicker() {
               {cap} •
             </span>
           ))}
+          {/* Third set just in case the screen is extremely wide, to prevent gaps before the loop resets */}
           {capabilities.map((cap, i) => (
             <span
-              key={`2-dup-${i}`}
+              key={`3-${i}`}
+              className="text-sm font-medium uppercase tracking-widest text-muted-foreground/80 whitespace-nowrap"
+            >
+              {cap} •
+            </span>
+          ))}
+          {/* Fourth set for safety */}
+          {capabilities.map((cap, i) => (
+            <span
+              key={`4-${i}`}
               className="text-sm font-medium uppercase tracking-widest text-muted-foreground/80 whitespace-nowrap"
             >
               {cap} •
