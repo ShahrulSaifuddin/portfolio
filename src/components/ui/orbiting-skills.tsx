@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, memo } from "react";
+import React, { useState, memo } from "react";
 
 // --- Type Definitions ---
 type IconType = "html" | "css" | "javascript" | "react" | "node" | "tailwind";
@@ -19,11 +19,6 @@ interface SkillConfig {
   phaseShift: number;
   glowColor: GlowColor;
   label: string;
-}
-
-interface OrbitingSkillProps {
-  config: SkillConfig;
-  angle: number;
 }
 
 interface GlowingOrbitPathProps {
@@ -193,47 +188,79 @@ const skillsConfig: SkillConfig[] = [
   },
 ];
 
-// --- Memoized Orbiting Skill Component ---
-const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
+// --- Memoized Orbiting Skill Component (CSS Animation Version) ---
+const OrbitingSkill = memo(({ config }: { config: SkillConfig }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { orbitRadius, size, iconType, label } = config;
+  const { orbitRadius, size, iconType, label, speed, phaseShift } = config;
 
-  const x = Math.cos(angle) * orbitRadius;
-  const y = Math.sin(angle) * orbitRadius;
+  // Calculate duration: Base 20s for speed 1. Higher speed = Lower duration.
+  const duration = 20 / Math.abs(speed);
+  const direction = speed > 0 ? "normal" : "reverse";
+  const reverseDirection = speed > 0 ? "reverse" : "normal";
 
   return (
-    <div
-      className="absolute top-1/2 left-1/2 transition-all duration-300 ease-out"
-      style={{
-        width: `${size}px`,
-        height: `${size}px`,
-        transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
-        zIndex: isHovered ? 20 : 10,
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <>
       <div
-        className={`
-          relative w-full h-full p-2 bg-gray-800/90 backdrop-blur-sm
-          rounded-full flex items-center justify-center
-          transition-all duration-300 cursor-pointer
-          ${isHovered ? "scale-125 shadow-2xl" : "shadow-lg hover:shadow-xl"}
-        `}
+        className="absolute top-1/2 left-1/2 rounded-full pointer-events-none"
         style={{
-          boxShadow: isHovered
-            ? `0 0 30px ${iconComponents[iconType]?.color}40, 0 0 60px ${iconComponents[iconType]?.color}20`
-            : undefined,
+          width: `${orbitRadius * 2}px`,
+          height: `${orbitRadius * 2}px`,
+          transform: `translate(-50%, -50%) rotate(${phaseShift}rad)`,
         }}
       >
-        <SkillIcon type={iconType} />
-        {isHovered && (
-          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900/95 backdrop-blur-sm rounded text-xs text-white whitespace-nowrap pointer-events-none">
-            {label}
+        <div
+          className="w-full h-full animate-spin-orbit group-hover/orbit:[animation-play-state:paused]"
+          style={{
+            animationDuration: `${duration}s`,
+            animationDirection: direction,
+          }}
+        >
+          <div
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{ width: `${size}px`, height: `${size}px` }}
+          >
+            <div
+              className="w-full h-full animate-spin-orbit group-hover/orbit:[animation-play-state:paused]"
+              style={{
+                animationDuration: `${duration}s`,
+                animationDirection: reverseDirection,
+              }}
+            >
+              <div
+                className="w-full h-full pointer-events-auto transition-all duration-300 ease-out"
+                style={{
+                  transform: `rotate(-${phaseShift}rad)`,
+                  zIndex: isHovered ? 20 : 10,
+                }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <div
+                  className={`
+                    relative w-full h-full p-2 bg-gray-800/90 backdrop-blur-sm
+                    rounded-full flex items-center justify-center
+                    transition-all duration-300 cursor-pointer
+                    ${isHovered ? "scale-125 shadow-2xl" : "shadow-lg hover:shadow-xl"}
+                  `}
+                  style={{
+                    boxShadow: isHovered
+                      ? `0 0 30px ${iconComponents[iconType]?.color}40, 0 0 60px ${iconComponents[iconType]?.color}20`
+                      : undefined,
+                  }}
+                >
+                  <SkillIcon type={iconType} />
+                  {isHovered && (
+                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900/95 backdrop-blur-sm rounded text-xs text-white whitespace-nowrap pointer-events-none">
+                      {label}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </>
   );
 });
 OrbitingSkill.displayName = "OrbitingSkill";
@@ -297,28 +324,6 @@ GlowingOrbitPath.displayName = "GlowingOrbitPath";
 
 // --- Main App Component ---
 export function OrbitingSkills() {
-  // Exported as named export for consistency
-  const [time, setTime] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    if (isPaused) return;
-
-    let animationFrameId: number;
-    let lastTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const deltaTime = (currentTime - lastTime) / 1000;
-      lastTime = currentTime;
-
-      setTime((prevTime) => prevTime + deltaTime);
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isPaused]);
-
   const orbitConfigs: Array<{
     radius: number;
     glowColor: GlowColor;
@@ -330,13 +335,21 @@ export function OrbitingSkills() {
 
   return (
     <div className="w-full flex items-center justify-center overflow-hidden py-10">
+      <style>
+        {`
+          @keyframes spin-orbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          .animate-spin-orbit {
+            animation: spin-orbit linear infinite;
+          }
+        `}
+      </style>
+
       {/* Background pattern removed for seamless blending */}
 
-      <div
-        className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] flex items-center justify-center transform-gpu scale-[0.6] sm:scale-90 md:scale-100 will-change-transform"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
+      <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] flex items-center justify-center transform-gpu scale-[0.6] sm:scale-90 md:scale-100 will-change-transform group/orbit">
         {/* Central "Code" Icon with enhanced glow */}
         <div className="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center z-10 relative shadow-2xl border border-gold-500/20">
           <div className="absolute inset-0 rounded-full bg-gold-500/30 blur-xl animate-pulse"></div>
@@ -374,12 +387,9 @@ export function OrbitingSkills() {
         ))}
 
         {/* Render orbiting skill icons */}
-        {skillsConfig.map((config) => {
-          const angle = time * config.speed + (config.phaseShift || 0);
-          return (
-            <OrbitingSkill key={config.id} config={config} angle={angle} />
-          );
-        })}
+        {skillsConfig.map((config) => (
+          <OrbitingSkill key={config.id} config={config} />
+        ))}
       </div>
     </div>
   );
