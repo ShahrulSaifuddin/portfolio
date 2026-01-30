@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronRight, Terminal } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CapabilitiesTicker } from "@/components/features/CapabilitiesTicker";
@@ -10,6 +10,7 @@ import projectsData from "@/content/projects.json";
 import { motion } from "framer-motion";
 import { SplineScene } from "@/components/ui/splite";
 import { Spotlight } from "@/components/ui/spotlight";
+import { OrbitingSkills } from "@/components/ui/orbiting-skills";
 
 export function HomePage() {
   const featuredProjects = projectsData.projects.slice(0, 2); // Show top 2
@@ -137,21 +138,10 @@ export function HomePage() {
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-2 gap-4">
-              {["Next.js", "Laravel", "React Native", "TypeScript"].map(
-                (tech, index) => (
-                  <ScrollReveal
-                    key={tech}
-                    delay={index * 0.1}
-                    animation="blur-in"
-                  >
-                    <div className="flex items-center p-4 rounded-xl border border-border bg-background/50 hover:border-gold-500/30 transition-colors">
-                      <Terminal className="w-5 h-5 text-gold-500 mr-3" />
-                      <span className="font-medium">{tech}</span>
-                    </div>
-                  </ScrollReveal>
-                ),
-              )}
+            <div className="flex justify-center w-full">
+              <ScrollReveal animation="blur-in" delay={0.2}>
+                <OrbitingSkills />
+              </ScrollReveal>
             </div>
           </div>
         </div>
