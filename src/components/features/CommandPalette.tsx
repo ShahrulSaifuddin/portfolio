@@ -34,7 +34,7 @@ export function CommandPalette() {
 
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-50 md:hidden">
+      {/* <div className="fixed bottom-4 right-4 z-50 md:hidden">
         <Button
           variant="outline"
           size="icon"
@@ -43,7 +43,7 @@ export function CommandPalette() {
         >
           <span className="text-xs font-bold">CmdK</span>
         </Button>
-      </div>
+      </div> */}
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <div className="bg-popover text-popover-foreground border border-border shadow-2xl rounded-xl overflow-hidden max-w-lg w-full mx-auto mt-[10vh]">

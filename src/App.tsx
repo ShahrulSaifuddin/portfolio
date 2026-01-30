@@ -15,7 +15,7 @@ import { BlogPage } from "@/pages/Blog";
 import { BlogPostPage } from "@/pages/BlogPost";
 import { NowPage } from "@/pages/Now";
 import { ResumePage } from "@/pages/Resume";
-import { CommandPalette } from "@/components/features/CommandPalette";
+// import { CommandPalette } from "@/components/features/CommandPalette";
 import { AnimatedBackground } from "@/components/features/AnimatedBackground";
 import { ThemeToggle } from "@/components/features/ThemeToggle";
 import { Toaster } from "@/components/ui/toaster";
