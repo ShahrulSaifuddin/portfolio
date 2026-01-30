@@ -344,8 +344,8 @@ export function OrbitingSkills() {
           .animate-spin-orbit {
             animation: spin-orbit linear infinite;
           }
-          /* Only pause on hover for devices that support hover (desktop) */
-          @media (hover: hover) {
+          /* Only pause on hover for devices with a fine pointer (mouse) */
+          @media (pointer: fine) {
             .orbit-container:hover .pause-on-hover {
               animation-play-state: paused;
             }
