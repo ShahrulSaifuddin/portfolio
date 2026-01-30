@@ -3,11 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { AlternatingReveal } from "@/components/ui/alternating-reveal";
 
 export function ContactPage() {
   return (
     <div className="pt-32 pb-20 px-4 sm:px-8 max-w-4xl mx-auto w-full min-h-screen">
-      <div className="mb-12">
+      <AlternatingReveal className="mb-12">
         <Badge variant="outline" className="mb-4">
           Get in Touch
         </Badge>
@@ -17,9 +18,12 @@ export function ContactPage() {
         <p className="text-xl text-muted-foreground">
           I'm currently available for freelance projects and consulting.
         </p>
-      </div>
+      </AlternatingReveal>
 
-      <div className="grid md:grid-cols-[2fr_1fr] gap-12">
+      <AlternatingReveal
+        className="grid md:grid-cols-[2fr_1fr] gap-12"
+        delay={0.2}
+      >
         <Card className="border-border/60 bg-card/50">
           <CardContent className="p-8">
             <form
@@ -140,7 +144,7 @@ export function ContactPage() {
             </div>
           </div>
         </div>
-      </div>
+      </AlternatingReveal>
     </div>
   );
 }

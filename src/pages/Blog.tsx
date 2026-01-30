@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { AlternatingReveal } from "@/components/ui/alternating-reveal";
 // Placeholder data
 const posts = [
   {
@@ -22,14 +23,16 @@ const posts = [
 export function BlogPage() {
   return (
     <div className="pt-32 pb-20 px-4 sm:px-8 max-w-3xl mx-auto w-full min-h-screen">
-      <Badge variant="outline" className="mb-4">
-        Writing
-      </Badge>
-      <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-12">
-        Thoughts & Notes
-      </h1>
+      <AlternatingReveal>
+        <Badge variant="outline" className="mb-4">
+          Writing
+        </Badge>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-12">
+          Thoughts & Notes
+        </h1>
+      </AlternatingReveal>
 
-      <div className="space-y-12">
+      <AlternatingReveal className="space-y-12" delay={0.2}>
         {posts.map((post) => (
           <Link
             key={post.slug}
@@ -51,7 +54,7 @@ export function BlogPage() {
             </article>
           </Link>
         ))}
-      </div>
+      </AlternatingReveal>
     </div>
   );
 }

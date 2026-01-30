@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { AlternatingReveal } from "@/components/ui/alternating-reveal";
 import profileData from "@/content/profile.json";
 
 export function AboutPage() {
@@ -26,13 +27,10 @@ export function AboutPage() {
       </ScrollReveal>
 
       <div className="prose prose-invert prose-lg text-muted-foreground">
-        <ScrollReveal delay={0.1}>
+        <AlternatingReveal delay={0.1}>
           <p className="lead text-xl text-foreground font-medium mb-6">
             {profileData.headline}
           </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.2} staggerChildren={0.1}>
           <p>
             I'm Shahrul, a {profileData.location}-based Full-Stack Team Lead. I
             believe in software that feels solid—tools that don't just work, but
@@ -48,7 +46,7 @@ export function AboutPage() {
             When I'm not coding, I'm likely exploring new coffee spots, reading
             about system architecture, or refining my local dev environment.
           </p>
-        </ScrollReveal>
+        </AlternatingReveal>
       </div>
     </div>
   );

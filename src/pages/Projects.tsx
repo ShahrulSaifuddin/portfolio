@@ -2,6 +2,8 @@ import { ProjectCard } from "@/components/features/ProjectCard";
 import projectsData from "@/content/projects.json";
 import { Badge } from "@/components/ui/badge";
 
+import { motion } from "framer-motion";
+
 export function ProjectsPage() {
   return (
     <div className="pt-32 pb-20 px-4 sm:px-8 max-w-7xl mx-auto w-full min-h-screen">
@@ -19,14 +21,25 @@ export function ProjectsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        {projectsData.projects.map((project, idx) => (
-          <div
-            key={project.slug}
-            className={`h-[450px] md:h-[550px] ${idx % 3 === 0 ? "md:col-span-2 md:h-[600px]" : ""}`}
-          >
-            <ProjectCard project={project} />
-          </div>
-        ))}
+        {projectsData.projects.map((project, idx) => {
+          const isEven = idx % 2 === 0;
+          return (
+            <motion.div
+              key={project.slug}
+              className={`h-[450px] md:h-[550px] ${idx % 3 === 0 ? "md:col-span-2 md:h-[600px]" : ""}`}
+              initial={{ opacity: 0, x: isEven ? 50 : -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{
+                duration: 0.8,
+                ease: [0.25, 0.4, 0.25, 1],
+                delay: idx * 0.1,
+              }}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
