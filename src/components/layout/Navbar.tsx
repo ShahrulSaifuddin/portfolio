@@ -86,61 +86,95 @@ export function Navbar() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-background/95 backdrop-blur-3xl flex flex-col items-center justify-center space-y-8 md:hidden"
-          >
-            <button
-              className="absolute top-6 right-6 p-2 text-foreground"
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
-            >
-              <X className="w-8 h-8" />
-            </button>
+            />
 
-            <nav className="flex flex-col items-center gap-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
+            {/* Centering Container */}
+            <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
+              {/* Glass Card Modal */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{
+                  duration: 0.3,
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 300,
+                }}
+                className="w-full max-w-md max-h-[80dvh] overflow-y-auto rounded-3xl border border-white/10 bg-zinc-900/80 backdrop-blur-2xl shadow-2xl p-6 flex flex-col items-center pointer-events-auto my-auto"
+              >
+                <button
+                  className="absolute top-5 right-5 p-2 rounded-full hover:bg-white/10 transition-colors text-foreground"
                   onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "text-4xl font-bold tracking-tighter transition-colors hover:text-primary",
-                    location.pathname === item.path
-                      ? "text-primary"
-                      : "text-foreground",
-                  )}
+                  aria-label="Close menu"
                 >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+                  <X className="w-6 h-6" />
+                </button>
 
-            <div className="flex flex-col gap-4 mt-8 w-full max-w-xs px-8">
-              <Button
-                variant="outline"
-                size="lg"
-                asChild
-                className="w-full text-lg h-12"
-              >
-                <Link to="/contact" onClick={() => setIsOpen(false)}>
-                  Contact
-                </Link>
-              </Button>
-              <Button
-                variant="premium"
-                size="lg"
-                asChild
-                className="w-full text-lg h-12"
-              >
-                <Link to="/resume" onClick={() => setIsOpen(false)}>
-                  Resume
-                </Link>
-              </Button>
+                <nav className="flex flex-col items-center gap-6 w-full mt-8">
+                  {navItems.map((item, i) => (
+                    <motion.div
+                      key={item.path}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}
+                      className="w-full text-center"
+                    >
+                      <Link
+                        to={item.path}
+                        onClick={() => setIsOpen(false)}
+                        className={cn(
+                          "block text-3xl font-bold tracking-tight transition-colors w-full py-2 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent hover:text-primary",
+                          location.pathname === item.path
+                            ? "text-primary bg-none"
+                            : "",
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </nav>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="flex flex-col gap-4 mt-10 w-full pb-4"
+                >
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="w-full h-12 rounded-xl border-white/10 hover:bg-white/5"
+                  >
+                    <Link to="/contact" onClick={() => setIsOpen(false)}>
+                      Get in Touch
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="premium"
+                    size="lg"
+                    asChild
+                    className="w-full h-12 rounded-xl shadow-lg shadow-primary/20"
+                  >
+                    <Link to="/resume" onClick={() => setIsOpen(false)}>
+                      View Resume
+                    </Link>
+                  </Button>
+                </motion.div>
+              </motion.div>
             </div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
