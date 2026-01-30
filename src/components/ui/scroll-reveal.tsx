@@ -5,7 +5,7 @@ interface ScrollRevealProps {
   children: React.ReactNode;
   width?: "fit-content" | "100%";
   className?: string;
-  animation?: "fade-up" | "blur-in" | "slide-in";
+  animation?: "fade-up" | "blur-in" | "slide-in" | "stagger-blur";
   delay?: number;
   duration?: number;
   staggerChildren?: number;
@@ -38,12 +38,19 @@ export function ScrollReveal({
     visible: { opacity: 1, x: 0 },
   };
 
+  const staggerBlurVariants = {
+    hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
+    visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  };
+
   const selectedVariant =
     animation === "blur-in"
       ? blurVariants
       : animation === "slide-in"
         ? slideVariants
-        : variants;
+        : animation === "stagger-blur"
+          ? staggerBlurVariants
+          : variants;
 
   return (
     <div ref={ref} style={{ width }} className={className}>
@@ -56,7 +63,8 @@ export function ScrollReveal({
               duration: duration,
               ease: [0.25, 0.4, 0.25, 1], // Custom "editorial" ease
               delay: delay,
-              staggerChildren: staggerChildren,
+              staggerChildren:
+                staggerChildren || (animation === "stagger-blur" ? 0.05 : 0),
             },
           },
         }}

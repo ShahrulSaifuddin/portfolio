@@ -11,6 +11,8 @@ import { motion } from "framer-motion";
 import { SplineScene } from "@/components/ui/splite";
 import { Spotlight } from "@/components/ui/spotlight";
 import { OrbitingSkills } from "@/components/ui/orbiting-skills";
+import { MagneticButton } from "@/components/ui/magnetic-button";
+import { TextReveal, revealVariants } from "@/components/ui/text-reveal";
 
 export function HomePage() {
   const featuredProjects = projectsData.projects.slice(0, 2); // Show top 2
@@ -40,35 +42,54 @@ export function HomePage() {
                 >
                   Available for work
                 </Badge>
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] text-primary mb-8">
-                  I build <span className="text-muted-foreground">fast</span>,{" "}
+                <TextReveal
+                  className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] text-primary mb-8"
+                  delay={0.2}
+                >
+                  <motion.span variants={revealVariants}>I</motion.span>{" "}
+                  <motion.span variants={revealVariants}>build</motion.span>{" "}
+                  <motion.span
+                    variants={revealVariants}
+                    className="text-muted-foreground inline-block"
+                  >
+                    fast
+                  </motion.span>
+                  <motion.span variants={revealVariants}>,</motion.span>
                   <br className="hidden md:block" />
-                  reliable products.
-                </h1>
+                  <motion.span variants={revealVariants}>
+                    reliable
+                  </motion.span>{" "}
+                  <motion.span variants={revealVariants}>products.</motion.span>
+                </TextReveal>
                 <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mb-10">
                   {profileData.headline} {profileData.bio}
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Button
-                    asChild
-                    size="lg"
-                    variant="premium"
-                    className="group text-base h-14 px-8 rounded-full"
-                  >
-                    <Link to="/projects">
-                      View Projects
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    size="lg"
-                    variant="outline"
-                    className="text-base h-14 px-8 rounded-full bg-background/50 backdrop-blur-sm hover:bg-background/80"
-                  >
-                    <Link to="/contact">Let's Talk</Link>
-                  </Button>
+                  <MagneticButton>
+                    <Button
+                      asChild
+                      size="lg"
+                      variant="premium"
+                      className="group text-base h-14 px-8 rounded-full"
+                    >
+                      <Link to="/projects">
+                        View Projects
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </MagneticButton>
+
+                  <MagneticButton>
+                    <Button
+                      asChild
+                      size="lg"
+                      variant="outline"
+                      className="text-base h-14 px-8 rounded-full bg-background/50 backdrop-blur-sm hover:bg-background/80"
+                    >
+                      <Link to="/contact">Let's Talk</Link>
+                    </Button>
+                  </MagneticButton>
                 </div>
               </motion.div>
             </div>
